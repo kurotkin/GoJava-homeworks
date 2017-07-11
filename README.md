@@ -5,6 +5,6 @@ There are homeworks
 
 - [HomeWork2 - Домашнее задание №2](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork2)
 
-  - [HomeWork3 - Домашнее задание №3](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork3)
+- [HomeWork3 - Домашнее задание №3](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork3)
 
 -------------------------
