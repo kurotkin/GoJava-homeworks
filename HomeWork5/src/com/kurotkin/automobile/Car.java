@@ -1,6 +1,8 @@
 package com.kurotkin.automobile;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Vitaly on 24.07.17.
@@ -13,8 +15,8 @@ public class Car {
     private int passengerCapacity;
     private int numberPassenger;
     private double currentSpeed;
-    private CarDoor[] carDoors;
-    private CarWheel[] carWheels;
+    private List<CarDoor> carDoors = new ArrayList<>();
+    private List<CarWheel> carWheels = new ArrayList<>();
 
     public Car(Date dateOfProduction) {
         if (dateOfProduction.after(new Date()))
@@ -79,15 +81,23 @@ public class Car {
     }
 
     public CarDoor getDoor (int index) {
-        return carDoors[index];
+        return carDoors.get(index);
     }
 
     public CarWheel getWheel (int index) {
-        return carWheels[index];
+        return carWheels.get(index);
     }
 
     public void removeAllWheels(){
-        ;
+        carWheels.clear();
+    }
+
+    public void installWheels(int number){
+        if (number < 0) throw new IllegalArgumentException("Ошибка, добавлять можно только целое количество колес");
+        while (number > 0) {
+            carWheels.add(new CarWheel());
+            number--;
+        }
     }
 
 
