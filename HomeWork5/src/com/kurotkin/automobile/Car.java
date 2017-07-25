@@ -52,5 +52,53 @@ public class Car {
         this.currentSpeed = currentSpeed;
     }
 
+    public void changeSpeed(double ps) {
+        if (ps < 0.0 || ps > 100.0)
+            throw new IllegalArgumentException("Ошибка, изменение скорости должно быть 0..100.0% По факту " + ps);
+        else {
+            currentSpeed += (currentSpeed / 100.0 * ps);
+            if (currentSpeed > maxSpeed)
+                currentSpeed = maxSpeed;
+        }
+    }
+
+    public void putPassenger() {
+        numberPassenger++;
+        if (numberPassenger > passengerCapacity)
+            numberPassenger = passengerCapacity;
+    }
+
+    public void disPutPassenger() {
+        numberPassenger--;
+        if (numberPassenger < 0)
+            numberPassenger = 0;
+    }
+
+    public void disPutAllPassenger() {
+        numberPassenger = 0;
+    }
+
+    public CarDoor getDoor (int index) {
+        return carDoors[index];
+    }
+
+    public CarWheel getWheel (int index) {
+        return carWheels[index];
+    }
+
+    public void removeAllWheels(){
+        ;
+    }
+
+
+
+//    Установить на машину X новых колесу (в добаков к имеющимся, то есть если было 4 колеса, после вызова метода с Х аргументом равным трем, колес будет 4+3=7)
+//    Вычислить текущую возможную максимальную скорость (Скорость машины вычисляется так. Максимальная скорость новой машины множиться на самое стертое колесо в машине. Максимальная скорость равна 0 если в машине нет ни одного пассажира, так как некому ее вести)
+//    Вывести в консоль данные об объекте (все поля и вычисленную максимальную скорость в зависимости от целостности колес и наличия водителя)
+//
+//
+//    Install the new wheel on the machine X (in addition to the existing ones, that is, if there were 4 wheels, after calling the method with X argument equal to three, the wheel will be 4 + 3 = 7)
+//    Calculate the current maximum speed possible (The speed of the machine is calculated as follows: the maximum speed of the new machine is multiplied by the most worn out wheel in the car.) The maximum speed is 0 if there is not one passenger in the car, since there is no one to drive it)
+//    Output to the console information about the object (all fields and the calculated maximum speed, depending on the integrity of the wheels and the presence of the driver)
 
 }
