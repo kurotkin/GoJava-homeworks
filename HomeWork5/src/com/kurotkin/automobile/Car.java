@@ -1,6 +1,7 @@
 package com.kurotkin.automobile;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Vitaly on 24.07.17.
  */
 public class Car {
-    private Date dateOfProduction;
+    private String dateOfProduction;
     private String typeEngine;
     private double maxSpeed;
     private double accelerationTime;
@@ -16,23 +17,19 @@ public class Car {
     private int numberPassenger;
     private double currentSpeed;
     private List<CarDoor> carDoors = new ArrayList<>();
-    private List<CarWheel> carWheels = new ArrayList<>();
+    public List<CarWheel> carWheels = new ArrayList<>();
 
-    public Car(Date dateOfProduction) {
-        if (dateOfProduction.after(new Date()))
-            throw new IllegalArgumentException("Дата выпуска автомобиля из будущего");
+    public Car(String dateOfProduction) {
         this.dateOfProduction = dateOfProduction;
     }
 
-    public Car(Date dateOfProduction,
+    public Car(String dateOfProduction,
                String typeEngine,
                double maxSpeed,
                double accelerationTime,
                int passengerCapacity,
                int numberPassenger,
                double currentSpeed) {
-        if (dateOfProduction.after(new Date()))
-            throw new IllegalArgumentException("Дата выпуска автомобиля из будущего");
         if (maxSpeed < 0.0)
             throw new IllegalArgumentException("Отрицательная максимальная скорость");
         if (accelerationTime < 0.0)
@@ -101,14 +98,16 @@ public class Car {
     }
 
 
+    public double getCurrentMaxSpeed(){
+        if(numberPassenger == 0)
+            return 0;
+        return carWheels.stream().min(Comparator.comparing(wheel -> wheel.state())).get().state() * maxSpeed;
+    }
 
-//    Установить на машину X новых колесу (в добаков к имеющимся, то есть если было 4 колеса, после вызова метода с Х аргументом равным трем, колес будет 4+3=7)
-//    Вычислить текущую возможную максимальную скорость (Скорость машины вычисляется так. Максимальная скорость новой машины множиться на самое стертое колесо в машине. Максимальная скорость равна 0 если в машине нет ни одного пассажира, так как некому ее вести)
-//    Вывести в консоль данные об объекте (все поля и вычисленную максимальную скорость в зависимости от целостности колес и наличия водителя)
-//
-//
-//    Install the new wheel on the machine X (in addition to the existing ones, that is, if there were 4 wheels, after calling the method with X argument equal to three, the wheel will be 4 + 3 = 7)
-//    Calculate the current maximum speed possible (The speed of the machine is calculated as follows: the maximum speed of the new machine is multiplied by the most worn out wheel in the car.) The maximum speed is 0 if there is not one passenger in the car, since there is no one to drive it)
-//    Output to the console information about the object (all fields and the calculated maximum speed, depending on the integrity of the wheels and the presence of the driver)
-
+    public void info() {
+        System.out.println("Дата производства " + dateOfProduction);
+        System.out.println("Тип двигателя " + typeEngine);
+        System.out.println("Максимальная скорость " + getCurrentMaxSpeed());
+        System.out.println("Пассажировместимость " + passengerCapacity);
+    }
 }
