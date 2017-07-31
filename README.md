@@ -6,6 +6,9 @@
 
 - [HomeWork3 - Домашнее задание №3](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork3)
 
-- [HomeWork3 - Домашнее задание №4](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork4)
+- [HomeWork4 - Домашнее задание №4](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork4)
 
+- [HomeWork5 - Домашнее задание №5](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork5)
+
+- [HomeWork6 - Домашнее задание №6](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork6)
 -------------------------
