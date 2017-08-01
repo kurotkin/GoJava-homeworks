@@ -24,7 +24,7 @@ public class Snowman extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setWidth(800);
-        primaryStage.setHeight(500);
+        primaryStage.setHeight(800);
         grafIntrf();
 
         Scene scene = new Scene(root);
