@@ -26,6 +26,7 @@ public class Snowman extends Application {
         primaryStage.setWidth(800);
         primaryStage.setHeight(800);
         grafIntrf();
+        //consolIntrf();
 
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
@@ -98,6 +99,12 @@ public class Snowman extends Application {
         root.getChildren().addAll(countLabel, countField, minLabel, minField, maxLabel, maxField, genButton, makeRedButton, makeGradButton);
     }
 
+    private void consolIntrf () {
+        int nSnowBools = Consol.readInt("Введите количество снежных шаров: ");
+        int minRadius = Consol.readInt("Введите минимальный радиус шара: ");
+        int maxRadius = Consol.readInt("Введите максимальный радиус шара: ");
+        root.getChildren().addAll(genCircles(nSnowBools, minRadius, maxRadius));
+    }
     private Circle[] genCircles(int nSnowBools, int minRadius, int maxRadius) {
         circles = new Circle[nSnowBools + 3];
         for(int i = 0; i < circles.length; i++) {

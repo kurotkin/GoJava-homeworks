@@ -21,30 +21,31 @@ public class Star extends Application {
         primaryStage.setWidth(800);
         primaryStage.setHeight(800);
 
-        drawStar(400,400 ,100);
+        int x = Consol.readInt("Введи координату X ");
+        int y = Consol.readInt("Введите координату Y ");
+        double rad = Consol.readDouble("Введите радиус");
+        drawStar(x,y ,rad);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 
     private void drawStar(int x, int y, double rad) {
-
         double a = 0;
         double b = Math.PI / 5.0;
         double k = 0.35;
-        int x1 = x + (int)(rad * Math.cos(a));
+        int x1 = x + (int)(rad * Math.sin(a));
         int x2;
-        int y1 = y + (int)(rad * Math.sin(a));
+        int y1 = y - (int)(rad * Math.cos(a));
         int y2;
-
         for (int i = 0; i < 5; i++) {
             a = a + b;
-            y2 = y + (int)(k * rad * Math.sin(a));
-            x2 = x + (int)(k * rad * Math.cos(a));
+            y2 = y - (int)(k * rad * Math.cos(a));
+            x2 = x + (int)(k * rad * Math.sin(a));
             Line line1 = new Line(x1, y1, x2, y2);
 
             a = a + b;
-            x1 = x + (int)(rad * Math.cos(a));
-            y1 = y + (int)(rad * Math.sin(a));
+            x1 = x + (int)(rad * Math.sin(a));
+            y1 = y - (int)(rad * Math.cos(a));
             Line line2 = new Line(x1, y1, x2, y2);
             root.getChildren().addAll(line1, line2);
         }
