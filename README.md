@@ -11,4 +11,6 @@
 - [HomeWork5 - Домашнее задание №5](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork5)
 
 - [HomeWork6 - Домашнее задание №6](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork6)
+
+- [HomeWork7 - Домашнее задание №7](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork7)
 -------------------------
