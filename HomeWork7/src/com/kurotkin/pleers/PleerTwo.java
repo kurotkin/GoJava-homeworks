@@ -7,9 +7,11 @@ public class PleerTwo extends PleerOne {
 
     public PleerTwo(int price, String oneSongName) {
         super(price, oneSongName);
+        pleerName = "Pleer 2";
     }
 
     public void playSong() {
-        System.err.println("error");
+        System.out.println(pleerName);
+        System.out.println("error");
     }
 }
