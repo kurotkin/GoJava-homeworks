@@ -5,16 +5,16 @@ package com.kurotkin.automobile;
  */
 public class CarDoor {
     private boolean doorIsOpen;
-    private boolean windowIsOpen;
+    private Window window;
 
     public CarDoor() {
         doorIsOpen = false;
-        windowIsOpen = false;
+        window = new Window();
     }
 
     public CarDoor(boolean doorIsOpen, boolean windowIsOpen) {
         this.doorIsOpen = doorIsOpen;
-        this.windowIsOpen = windowIsOpen;
+        window = new Window(windowIsOpen);
     }
 
     public void closeDoor() {
@@ -29,28 +29,46 @@ public class CarDoor {
         doorIsOpen = !doorIsOpen;
     }
 
-    public void closeWindow() {
-        windowIsOpen = false;
-    }
-
-    public void openWindow() {
-        windowIsOpen = true;
-    }
-
-    public void opClWindow() {
-        windowIsOpen = !windowIsOpen;
-    }
 
     public void info() {
         if (doorIsOpen)
             System.out.println("Дверь открыта");
         else
             System.out.println("Дверь закрыта");
+        window.info();
+    }
 
-        if (windowIsOpen)
-            System.out.println("Окно открыто");
-        else
-            System.out.println("Окно закрыто");
+    /*
+    * Добавлено 10.08.2017
+    **/
+    private class Window {
+        private boolean windowIsOpen;
+        public Window() {
+            windowIsOpen = false;
+        }
+
+        public Window(boolean windowIsOpen) {
+            this.windowIsOpen = windowIsOpen;
+        }
+
+        public void closeWindow() {
+            windowIsOpen = false;
+        }
+
+        public void openWindow() {
+            windowIsOpen = true;
+        }
+
+        public void info() {
+            if (windowIsOpen)
+                System.out.println("Окно открыто");
+            else
+                System.out.println("Окно закрыто");
+        }
+
+        public void opClWindow() {
+            windowIsOpen = !windowIsOpen;
+        }
     }
 
 }

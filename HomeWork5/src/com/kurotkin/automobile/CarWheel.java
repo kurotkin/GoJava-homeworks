@@ -25,7 +25,9 @@ public class CarWheel {
         if (ps < 0.0 || ps > 100.0)
             throw new IllegalArgumentException("Ошибка, износ шины должен быть 0..100.0  По факту " + ps);
         else
-            condition -= (condition / 100.0 * ps);
+            condition -= (ps / 100.0);
+        if (condition < 0)
+            condition = 0.0;
     }
 
     public double state() {
