@@ -87,6 +87,7 @@ public class MyLinkedList<T> implements Lists<T> {
                 iterator.prev = null;
             }
         }
+        size = 0;
     }
 
     @Override

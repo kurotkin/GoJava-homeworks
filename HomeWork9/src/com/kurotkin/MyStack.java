@@ -84,6 +84,7 @@ public class MyStack<T> {
                 iterator.prev = null;
             }
         }
+        size = 0;
     }
 
     public int size() {
