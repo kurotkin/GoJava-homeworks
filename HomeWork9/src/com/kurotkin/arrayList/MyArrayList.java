@@ -1,9 +1,11 @@
-package com.kurotkin;
+package com.kurotkin.arrayList;
+
+import com.kurotkin.Lists;
 
 /**
  * Created by Vitaly Kurotkin on 17.08.2017.
  */
-public class MyArrayList<T> implements Lists<T>{
+public class MyArrayList<T> implements Lists<T> {
     private T array[];
     private int size;
 

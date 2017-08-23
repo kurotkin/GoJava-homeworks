@@ -1,5 +1,11 @@
 package com.kurotkin;
 
+import com.kurotkin.arrayList.MyArrayList;
+import com.kurotkin.linkedList.MyLinkedList;
+import com.kurotkin.myHashMap.MyHashMap;
+import com.kurotkin.queue.MyQueue;
+import com.kurotkin.stack.MyStack;
+
 public class Main<K> {
 
     public static void main(String[] args) {
@@ -71,7 +77,25 @@ public class Main<K> {
         System.out.println(myStack.poll());
         System.out.println(myStack.poll());
         System.out.println(myStack.poll());
+        System.out.println("_________________________");
 
+
+        System.out.println("MyHashMap");
+        MyHashMap<Integer, String> myHashMap = new MyHashMap<>();
+        // Добавляем
+        for(int i = 0; i < 10 ; i += 1){
+            myHashMap.put(i, "Число = " + Integer.toString(i));
+        }
+        // Удаляем
+        System.out.println("Размер коллекции = " + myHashMap.size());
+        myHashMap.remove(5);
+        myHashMap.remove(2);
+        myHashMap.remove(8);
+        System.out.println("Размер коллекции = " + myHashMap.size());
+        // Выводим на экран
+        System.out.println(myHashMap.get(1));
+        System.out.println(myHashMap.get(4));
+        System.out.println(myHashMap.get(9));
 
     }
 

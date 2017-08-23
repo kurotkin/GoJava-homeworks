@@ -1,4 +1,7 @@
-package com.kurotkin;
+package com.kurotkin.queue;
+
+import com.kurotkin.Lists;
+import com.kurotkin.linkedList.MyLinkedList;
 
 /**
  * Created by Vitaly Kurotkin on 22.08.2017.

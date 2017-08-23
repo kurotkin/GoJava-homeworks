@@ -1,4 +1,4 @@
-package com.kurotkin;
+package com.kurotkin.myHashMap;
 
 /**
  * Created by Vitaly Kurotkin on 22.08.2017.

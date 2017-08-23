@@ -1,14 +1,18 @@
-package com.kurotkin;
+package com.kurotkin.linkedList;
+
+import com.kurotkin.Lists;
+import com.kurotkin.linkedList.MyNode;
 
 /**
- * Created by Vitaly Kurotkin on 22.08.2017.
+ * Created by Vitaly Kurotkin on 17.08.2017.
  */
-public class MyStack<T> {
+public class MyLinkedList<T> implements Lists<T> {
     private MyNode<T> first = null;
     private MyNode<T> last = null;
     private int size = 0;
 
-    public void push(T value) {
+    @Override
+    public void add(T value) {
         MyNode<T> node;
         if(first == null){
             node = new MyNode<>(value, null, null);
@@ -23,6 +27,7 @@ public class MyStack<T> {
         }
     }
 
+    @Override
     public void remove(int index) {
         if(index == 0) {
             if(size == 1) {
@@ -70,6 +75,7 @@ public class MyStack<T> {
         }
     }
 
+    @Override
     public void clear() {
         MyNode<T> iterator = first;
         while (iterator != null){
@@ -87,26 +93,13 @@ public class MyStack<T> {
         size = 0;
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    public T peek() {
-        if (size > 0) {
-            return getNode(size - 1).item;
-        } else {
-            return null;
-        }
-    }
-
-    public T poll() {
-        if (size > 0) {
-            T nodeVal = getNode(size - 1).item;
-            remove(size - 1);
-            return nodeVal;
-        } else {
-            return null;
-        }
+    public T get(int index) {
+        return getNode(index).item;
     }
 
     protected MyNode<T> getNode(int index){
@@ -118,7 +111,4 @@ public class MyStack<T> {
         }
         return node;
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package com.kurotkin;
+package com.kurotkin.linkedList;
 
 /**
  * Created by Vitaly Kurotkin on 21.08.2017.

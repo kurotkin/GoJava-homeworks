@@ -1,4 +1,4 @@
-package com.kurotkin;
+package com.kurotkin.myHashMap;
 
 /**
  * Created by Vitaly Kurotkin on 22.08.2017.
@@ -24,45 +24,23 @@ public class MyHashMap<T,K> {
     }
 
     public void remove(T key) {
-        if(index == 0) {
-            if(size == 1) {
-                clear();
-                size--;
-            } else if (size == 2) {
-                first.next = null;
-                first.key = null;
-                first.value = null;
-                first = last;
-                size--;
-            } else {
-                MyNodeKV<T,K> nodeFirst = getNode(1);
-                first.next = null;
-                first.key = null;
-                first.value = null;
-                first = nodeFirst;
-                size--;
-            }
-        } else if (index == (size-1)) {
-            if (size == 2) {
-                first.next = null;
-                last.next = null;
-                last.key = null;
-                last.value = null;
-                last = first;
-                size--;
-            } else {
-                MyNodeKV<T,K> nodeLast= getNode(size - 1);
-                last.key = null;
-                last.value = null;
-                nodeLast.next = null;
-                last = nodeLast;
-                size--;
-            }
+        MyNodeKV<T,K> node = getNode(key);
+        MyNodeKV<T,K> nodePrev = getPrevNode(key);
+
+        if (nodePrev == null){
+            first = node.next;
+            node.next = null;
+            node.key = null;
+            node.value = null;
+            size--;
+        } else if(node.next == null) {
+            nodePrev.next = null;
+            last = nodePrev;
+            node.key = null;
+            node.value = null;
+            size--;
         } else {
-            MyNodeKV<T,K> node = getNode(index);
-            MyNodeKV<T,K> nodePrev = getNode(index - 1);
-            MyNodeKV<T,K> nodeNext = getNode(index - 1);
-            nodePrev.next = nodeNext;
+            nodePrev.next = node.next;
             node.next = null;
             node.key = null;
             node.value = null;
@@ -99,6 +77,16 @@ public class MyHashMap<T,K> {
         MyNodeKV<T,K> iterator = first;
         while (iterator != null){
             if(iterator.key.equals(key))
+                return iterator;
+            iterator = iterator.next;
+        }
+        return null;
+    }
+
+    protected MyNodeKV<T,K> getPrevNode(T key){
+        MyNodeKV<T,K> iterator = first;
+        while (iterator != null){
+            if(iterator.next != null && iterator.next.key.equals(key))
                 return iterator;
             iterator = iterator.next;
         }
