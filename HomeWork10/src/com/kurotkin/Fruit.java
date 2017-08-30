@@ -1,6 +1,7 @@
 package com.kurotkin;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
 public class Fruit {
     private Type kind;
     private int shelfLife;
-    public Date dateOfDelivery;
+    public LocalDate dateOfDelivery;
     private int price;
 
     public enum Type {
@@ -21,8 +22,7 @@ public class Fruit {
         Tangelo, Henomesel, Persimmon, Citron, Cherimoya, Chompu, Apple
     };
 
-
-    public Fruit(Type kind, int shelfLife, Date dateOfDelivery, int price) throws Exception {
+    public Fruit(Type kind, int shelfLife, LocalDate dateOfDelivery, int price) throws Exception {
         this.kind = kind;
         setShelfLife(shelfLife);
         this.dateOfDelivery = dateOfDelivery;
@@ -43,11 +43,11 @@ public class Fruit {
         this.shelfLife = shelfLife;
     }
 
-    public String getDateOfDelivery() {
-        return new SimpleDateFormat("dd.MM.yyyy").format(dateOfDelivery);
+    public LocalDate getDateOfDelivery() {
+        return dateOfDelivery;
     }
 
-    public void setDateOfDelivery(Date dateOfDelivery) {
+    public void setDateOfDelivery(LocalDate dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
     }
 

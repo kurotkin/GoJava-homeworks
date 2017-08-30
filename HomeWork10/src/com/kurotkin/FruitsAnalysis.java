@@ -9,5 +9,9 @@ import java.util.List;
  */
 public interface FruitsAnalysis {
     List<Fruit> getSpoiledFruits(LocalDate date);
-    List<Fruit> getAvailableFruits(Date date);
+    List<Fruit> getSpoiledFruits(LocalDate date, Fruit.Type type);
+    List<Fruit> getAvailableFruits(LocalDate date);
+    List<Fruit> getAvailableFruits(LocalDate date, Fruit.Type type);
+    List<Fruit> getAddedFruits(LocalDate date);
+    List<Fruit> getAddedFruits(LocalDate date, Fruit.Type type);
 }
