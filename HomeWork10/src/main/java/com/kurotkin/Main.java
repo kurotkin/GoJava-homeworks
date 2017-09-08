@@ -1,4 +1,4 @@
-package com.kurotkin;
+package main.java.com.kurotkin;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -8,6 +8,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
 	    Fruit[] fruits = new Fruit[] {
 	            new Fruit(Fruit.Type.Apple,     30, LocalDate.now(), 80),
                 new Fruit(Fruit.Type.Carambola, 10, LocalDate.now(), 250),
