@@ -10,58 +10,101 @@ import java.util.concurrent.Semaphore;
 public class Library {
     private static Scanner scanner = new Scanner(System.in);
     public final static Object door = new Object();
-    public final static Semaphore SEMAPHORE = new Semaphore(3, true);
+    public static Semaphore semaphore;
+    public static int peopleCount, maxAmount, currentAmount;
+    private static final Random random = new Random();
 
-    public static void toLibrary(){
-//        int peopleCount, maxAmount;
-//        System.out.println("Введите количество людей: ");
-//        peopleCount = scanner.nextInt();
-//        System.out.println("Введите количество мест в библиотеке: ");
-//        maxAmount = scanner.nextInt();
+    public static void main(String[] args) {
+        System.out.println("Введите количество людей: ");
+        peopleCount = scanner.nextInt();
+        System.out.println("Введите количество мест в библиотеке: ");
+        maxAmount = scanner.nextInt();
+        currentAmount = maxAmount;
 
         System.out.println("Библиотека:");
-        //SEMAPHORE = new Semaphore(3, true);
-        for(int i = 1; i <= 5; i++){
-            new Thread(new Peopl(i)).start();
+        semaphore = new Semaphore(maxAmount, true);
+
+        for(int i = 1; i <= peopleCount; i++){
+            new Thread(new People(i)).start();
             try {
-                Thread.sleep(5);
+                long timeSleap = (long)random.nextInt(300);
+                Thread.sleep(timeSleap);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
-
-    public static class Peopl implements Runnable{
+    public static class People implements Runnable{
         private int peopleNumber;
-        private final Random random = new Random();
 
-        public Peopl(int peopleNumber) {
+
+        public People(int peopleNumber) {
             this.peopleNumber = peopleNumber;
         }
 
         @Override
         public void run() {
-            if (SEMAPHORE.tryAcquire()){
-                System.out.println("[" + peopleNumber + "] пришел ко входу в библиотеку");
-            } else {
-                System.out.println("[" + peopleNumber + "] пришел ко входу в библиотеку и ждет у входа");
-                //"[" + peopleNumber + "] ждет у входа в библиотеку");
-            }
-
+            comeIn();
             try {
-                SEMAPHORE.acquire();
+                Library.semaphore.acquire();
+                currentAmount--;
+                inDoor();
                 System.out.println("[" + peopleNumber + "] вошел в библиотеку");
-
-                long timeSleap = (long)(random.nextInt(5000-1000) + 1000);
-                System.out.println("[" + peopleNumber + "] читает книгу " + timeSleap + " ms");
-                Thread.sleep(timeSleap);
-
+                readBook();
+                outDoor();
                 System.out.println("[" + peopleNumber + "] вышел из библиотеки ");
-                SEMAPHORE.release();
+                Library.semaphore.release();
+                currentAmount++;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
+        private void comeIn(){
+            if (currentAmount <= 0){
+                System.out.println("[" + peopleNumber + "] пришел ко входу в библиотеку  \n" +
+                        "[" + peopleNumber + "] ждет у входа в библиотеку");
+            } else {
+                System.out.println("[" + peopleNumber + "] пришел ко входу в библиотеку");
+            }
+        }
+
+        private void readBook(){
+            long timeSleap = (long)(random.nextInt(5000-1000) + 1000);
+            System.out.println("[" + peopleNumber + "] читает книгу " + timeSleap + " ms");
+            try {
+                Thread.sleep(timeSleap);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void inDoor(){
+            synchronized (Library.door) {
+                System.out.println("[" + peopleNumber + "] подошел к двери с улицы");
+                System.out.println("[" + peopleNumber + "] проходит через дверь внутрь");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("[" + peopleNumber + "] прошел через дверь внутрь");
+            }
+        }
+
+        private void outDoor(){
+            synchronized (Library.door) {
+                System.out.println("[" + peopleNumber + "] подошел к двери изнутри");
+                System.out.println("[" + peopleNumber + "] проходит через дверь наружу");
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("[" + peopleNumber + "] прошел через дверь наружу");
+            }
+        }
+
     }
 }
