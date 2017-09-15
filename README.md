@@ -19,4 +19,6 @@
 - [HomeWork9 - Домашнее задание №9 Коллекции Java и Generic типы](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork9)
 
 - [HomeWork10 - Домашнее задание №10 SDK, JSON и Generic типы](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork10)
+
+- [HomeWork11 - Домашнее задание №11 Многопоточность и Лямбды](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork11)
 -------------------------
