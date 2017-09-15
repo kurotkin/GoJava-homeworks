@@ -5,6 +5,8 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -19,6 +21,8 @@ public class GeometryInMotion extends Application {
     private static final Random random = new Random();
     private static final int width = 800;
     private static final int height = 800;
+    private List<myRectangle> rectangles;
+    private boolean singlThread;
 
     public static void main(String[] args) {
         launch(args);
@@ -29,24 +33,29 @@ public class GeometryInMotion extends Application {
         primaryStage.setWidth(width);
         primaryStage.setHeight(height);
         Pane root = new Pane();
-        final Button button = new Button("Multy Threads");
-        button.setTranslateX(10);
-        button.setTranslateY(10);
+        final Button button1 = new Button("Multy Threads");
+        final Button button2 = new Button("Single Thread");
+        button1.setTranslateX(10);
+        button1.setTranslateY(10);
+        button2.setTranslateX(110);
+        button2.setTranslateY(10);
 
-        root.getChildren().addAll(button);
+        root.getChildren().addAll(button1);
+        root.getChildren().addAll(button2);
 
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        button.setOnMouseClicked(event -> {
-            List<myRectangle> rectangles = getRectangles();
+        button1.setOnMouseClicked(event -> {
+            rectangles = getRectangles();
             for(myRectangle r : rectangles) {
                 root.getChildren().add(r.rectangle);
-
                 Thread thread = new Thread(() -> {
-                    while(true) {
-                        r.move();
-
+                    while(!singlThread) {
+                        Platform.runLater(() -> {
+                            r.moveX();
+                            r.moveY();
+                        });
                         try {
                             Thread.sleep(10);
                         } catch (InterruptedException e) {
@@ -58,20 +67,42 @@ public class GeometryInMotion extends Application {
             }
         });
 
+        button2.setOnMouseClicked(event -> {
+            singlThread = true;
+            Thread thread = new Thread(() -> {
+                while(singlThread) {
+                    for(myRectangle r : rectangles) {
+                        Platform.runLater(() -> {
+                            double x = myRectangle.moveX(r);
+                            double y = myRectangle.moveY(r);
+                            r.rectangle.setX(x);
+                            r.rectangle.setY(y);
+                        });
+                    }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        });
+
     }
 
     private static List<myRectangle> getRectangles () {
         List<myRectangle> list = new ArrayList<>();
-        for (int i = 1; i < 3; i++)
+        for (int i = 0; i < 10; i++)
             list.add(new myRectangle());
         return list;
     }
 
     private static class myRectangle {
         public Rectangle rectangle;
-        private int dirMovX;
-        private int dirMovY;
-        private int step = 1;
+        private double dirMovX;
+        private double dirMovY;
+        private double step = 1;
 
         public myRectangle() {
             int widthR = random.nextInt(width/4) + 4;
@@ -83,23 +114,57 @@ public class GeometryInMotion extends Application {
             rectangle.setY(y);
             rectangle.setWidth(widthR);
             rectangle.setHeight(heightR);
+            Color color = Color.color(
+                    random.nextDouble(),
+                    random.nextDouble(),
+                    random.nextDouble());
+            rectangle.setFill(Paint.valueOf(color.toString()));
             dirMovX = random.nextBoolean() ? 1 : -1;
             dirMovY = random.nextBoolean() ? 1 : -1;
         }
 
-        public void move(){
-            final double x = rectangle.getTranslateX() + dirMovX * step;
-            if(x < 0 || x > (width - rectangle.getWidth()))
-                dirMovX *= -1;
-            final double y = rectangle.getTranslateY() + dirMovY * step;
-            if(y < 0 || y > (height - rectangle.getHeight()))
-                dirMovY *= -1;
-            Platform.runLater(() -> {
-                rectangle.setTranslateX(x);
-                rectangle.setTranslateY(y);
-            });
+        public void moveX(){
+            final double x = rectangle.getX() + dirMovX * step;
+            if(x >= (width - rectangle.getWidth())){
+                dirMovX = -1;
+            }
+            if(x <= 0){
+                dirMovX = 1;
+            }
+            rectangle.setX(x);
+        }
+
+        public void moveY(){
+            final double y = rectangle.getY() + dirMovY * step;
+            if(y >= (height - rectangle.getHeight())){
+                dirMovY = -1;
+            }
+            if(y <= 0){
+                dirMovY = 1;
+            }
+            rectangle.setY(y);
+        }
+
+        public static double moveX(myRectangle r){
+            final double x = r.rectangle.getX() + r.dirMovX * r.step;
+            if(x >= (width - r.rectangle.getWidth())){
+                r.dirMovX = -1;
+            }
+            if(x <= 0){
+                r.dirMovX = 1;
+            }
+            return x;
+        }
+
+        public static double moveY(myRectangle r){
+            final double y = r.rectangle.getY() + r.dirMovY * r.step;
+            if(y >= (height - r.rectangle.getHeight())){
+                r.dirMovY = -1;
+            }
+            if(y <= 0){
+                r.dirMovY = 1;
+            }
+            return y;
         }
     }
-
-    //public static class
 }
