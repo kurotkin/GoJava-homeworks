@@ -21,4 +21,8 @@
 - [HomeWork10 - Домашнее задание №10 SDK, JSON и Generic типы](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork10)
 
 - [HomeWork11 - Домашнее задание №11 Многопоточность и Лямбды](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork11)
+
+- [HomeWork12 - Домашнее задание №12 Многопоточность и Web](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork12)
+
+- [HomeWork13 - Домашнее задание №13 HTTP запросы и Web API](https://github.com/kurotkin/GoJava-homeworks/tree/master/HomeWork13)
 -------------------------
