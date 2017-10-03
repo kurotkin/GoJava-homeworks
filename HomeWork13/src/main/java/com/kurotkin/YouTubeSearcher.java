@@ -36,7 +36,6 @@ public class YouTubeSearcher extends Application {
         BufferedReader reader = new BufferedReader(new FileReader("key.txt"));
         String key = reader.readLine();
 
-        initApplication();
 
         HttpResponse<ActivityResponce> r = Unirest.get("https://www.googleapis.com/youtube/v3/search")
                 .queryString("part", "snippet")
@@ -105,25 +104,9 @@ public class YouTubeSearcher extends Application {
 //        primaryStage.show();
 //    }
 
-    private static void initApplication() {
-        Unirest.setObjectMapper(new ObjectMapper() {
-            private com.fasterxml.jackson.databind.ObjectMapper jacksonObjectMapper = new com.fasterxml.jackson.databind.ObjectMapper();
 
-            public <T> T readValue(String value, Class<T> valueType) {
-                try {
-                    return jacksonObjectMapper.readValue(value, valueType);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-            public String writeValue(Object value) {
-                try {
-                    return jacksonObjectMapper.writeValueAsString(value);
-                } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+    @Override
+    public void stop() throws Exception {
+        Unirest.shutdown();
     }
 }
