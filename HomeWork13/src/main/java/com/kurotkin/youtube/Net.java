@@ -36,23 +36,23 @@ public class Net {
         });
     }
 
-    private HttpResponse<ActivityResponce> getSearchHttpAsyncResponseInJson(String searchText) throws ExecutionException, InterruptedException {
+    private HttpResponse<ActivityResponce> getSearchHttpAsyncResponseInJson(String searchText, String key) throws ExecutionException, InterruptedException {
         Future<HttpResponse<ActivityResponce>> future = Unirest.get("https://www.googleapis.com/youtube/v3/search")
                 .queryString("type", "video")
                 .queryString("q", searchText)
-                .queryString("maxResults", "5")
+                .queryString("maxResults", "3")
                 .queryString("part", "snippet")
-                .queryString("key", "AIzaSyArYM5JuH6WpXt7n_AqBQM0uifsUjmf9H8")
+                .queryString("key", key)
                 .asObjectAsync(ActivityResponce.class);
 
         return future.get();
     }
 
-    public ActivityResponce getResult(String searchText) {
+    public ActivityResponce getResult(String searchText, String key) {
         ActivityResponce response = null;
         if (searchText.isEmpty()) return null;
         try {
-            response = getSearchHttpAsyncResponseInJson(searchText).getBody();
+            response = getSearchHttpAsyncResponseInJson(searchText, key).getBody();
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
